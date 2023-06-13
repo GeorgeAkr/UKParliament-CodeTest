@@ -27,8 +27,8 @@ namespace UKParliament.CodeTest.Web.Controllers
         {
             var people = new List<PersonViewModel>() 
             {
-                new PersonViewModel { Name = "Lalakis"},
-                new PersonViewModel { Name = "Lalakis2"}
+                new PersonViewModel { Name = "Eirini", DateOfBirth = new DateTime(2001, 7, 17), Address = "Athina", Details = "Kavlara"},
+                new PersonViewModel { Name = "George", DateOfBirth = new DateTime(1988, 8, 12), Address = "Lamia", Details = "Ntaks"}
             };
             return Ok(people);
         }
