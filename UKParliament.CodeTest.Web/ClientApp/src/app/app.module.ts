@@ -7,6 +7,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PeopleComponent } from './people/people.component';
 import { HomeComponent } from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const routes: Routes = [
   { path: '', component: PeopleComponent },
@@ -16,13 +18,15 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    PeopleComponent
+    PeopleComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
