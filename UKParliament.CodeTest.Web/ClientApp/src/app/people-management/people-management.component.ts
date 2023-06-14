@@ -126,7 +126,7 @@ export class PeopleManagementComponent implements AfterViewInit {
   }
 
   getPeople(): void {
-    this.http.get<PersonViewModel[]>(this.baseUrl + `api/person/getall`).subscribe(result => {
+    this.http.get<PersonViewModel[]>(this.baseUrl + `api/person`).subscribe(result => {
       this.setPeople(result);
     }, error => console.error(error));
   }
