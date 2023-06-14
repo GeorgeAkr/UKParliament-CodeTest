@@ -17,7 +17,7 @@ namespace UKParliament.CodeTest.Data.Repositories
             this.context = context;
         }
 
-        public async Task<Person?> AddAsync(Person newPerson, CancellationToken ct = default)
+        public async Task<Person> AddAsync(Person newPerson, CancellationToken ct = default)
         {
             context.People.Add(newPerson);
             return await context.SaveChangesAsync(ct) == 1 ? newPerson : null;
@@ -51,10 +51,10 @@ namespace UKParliament.CodeTest.Data.Repositories
             return await context.People.FindAsync(id);
         }
 
-        public async Task<bool> UpdateAsync(Person car, CancellationToken ct = default)
+        public async Task<bool> UpdateAsync(Person person, CancellationToken ct = default)
         {
             bool success = false;
-            Person toBeUpdated = context.People.Find(car.Id);
+            Person toBeUpdated = context.People.Find(person.Id);
             if (toBeUpdated != null)
             {
                 context.People.Update(toBeUpdated);
