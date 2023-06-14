@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using UKParliament.CodeTest.Data;
+using UKParliament.CodeTest.Data.Repositories;
 using UKParliament.CodeTest.Services;
 
 namespace UKParliament.CodeTest.Web
@@ -15,10 +17,12 @@ namespace UKParliament.CodeTest.Web
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<PersonManagerContext>(op => op.UseInMemoryDatabase("PersonManager"));
-
+            builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddScoped<IPersonService, PersonService>();
+            builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
             var app = builder.Build();
+            SeedDatabase(app);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -37,6 +41,14 @@ namespace UKParliament.CodeTest.Web
             app.MapFallbackToFile("index.html");
 
             app.Run();
+        }
+
+        private static void SeedDatabase(WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var personContext = services.GetRequiredService<PersonManagerContext>();
+            PersonManagerContextSeed.SeedAsync(personContext);
         }
     }
 }
