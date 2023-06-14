@@ -10,6 +10,11 @@ namespace UKParliament.CodeTest.Data
         {
         }
 
-        public DbSet<Person> People { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
+        public virtual DbSet<Person> People { get; set; }
     }
 }
