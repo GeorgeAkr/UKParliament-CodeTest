@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { PeopleComponent } from './people/people.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PeopleManagementComponent } from './people-management/people-management.component';
@@ -20,15 +19,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
-  { path: '', component: PeopleComponent },
-  { path: 'exercise', component: HomeComponent },
-  { path: 'try', component: PeopleManagementComponent },
+  { path: '', component: PeopleManagementComponent },
+  { path: 'instructions', component: HomeComponent },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    PeopleComponent,
     NavbarComponent
   ],
   imports: [

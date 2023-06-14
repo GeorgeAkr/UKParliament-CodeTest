@@ -47,7 +47,6 @@ export class PeopleManagementComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.getPeople();
-    
   }
 
   toggleEditing() {
@@ -63,7 +62,6 @@ export class PeopleManagementComponent implements AfterViewInit {
       this.selectedPerson = null;
       this.drawer.toggle();
     }
-    
     this.editing = !this.editing;
   }
 
@@ -82,27 +80,44 @@ export class PeopleManagementComponent implements AfterViewInit {
 
   savePerson(): void {
     if (this.selectedPerson !== null && this.selectedPerson.id !== undefined && this.selectedPerson.id != 0) {
-      const index = this.people.indexOf(this.originalPerson!);
-      this.people[index] = this.selectedPerson!;
+      this.saveEditedPerson(this.selectedPerson);
     }
     else if (this.selectedPerson !== null) {
-      const maxId = (this.people.reduce((prev, current) => (prev.id > current.id) ? prev : current)).id;
-      this.selectedPerson.id = maxId + 1;
-      this.people.push(this.selectedPerson!);
+      this.saveNewPerson(this.selectedPerson);
     }
+  }
 
-    // Save the updated person data to the backend or perform necessary actions
-    console.log('Saved:', this.selectedPerson);
-    this.dataSource = new MatTableDataSource(this.people);
-    this.editing = false;
+  private saveEditedPerson(person: PersonViewModel): void {
+    this.http.put<PersonViewModel>(this.baseUrl + `api/person/person`, person).subscribe(result => {
+      if (result == null) {
+        const index = this.people.indexOf(this.originalPerson!);
+        this.people[index] = person;
+        this.setPeople(this.people);
+        this.editing = false;
+      }
+    }, error => console.error(error));
+  }
+
+  private saveNewPerson(person: PersonViewModel): void {
+    this.http.post<PersonViewModel>(this.baseUrl + `api/person/person`, person).subscribe(result => {
+      console.log(`Successfully saved new user with id:${result.id}`);
+      this.people.push(this.selectedPerson!);
+      this.setPeople(this.people);
+      this.editing = false;
+    }, error => console.error(error));
   }
 
   deletePerson(person: PersonViewModel) {
-    const index = this.people.indexOf(person, 0);
-    if (index > -1) {
-      this.people.splice(index, 1);
-      this.dataSource = new MatTableDataSource(this.people);
-    }
+    this.http.delete(this.baseUrl + `api/person/${person.id}`).subscribe(result => {
+      if (result === true) {
+        console.log(`Successfully deleted user with id:${person.id}`);
+        const index = this.people.indexOf(person, 0);
+        if (index > -1) {
+          this.people.splice(index, 1);
+          this.setPeople(this.people);
+        }
+      }
+    }, error => console.error(error));
   }
 
   closeCard(): void {

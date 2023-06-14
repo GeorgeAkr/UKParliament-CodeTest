@@ -1,6 +1,6 @@
-<mat-drawer-container class="" [hasBackdrop]="true">
+<mat-drawer-container class="" [hasBackdrop]="true" (backdropClick)="closeCard()">
 
-  <mat-drawer #drawer2 mode="over" style="width:50%; height:100%">
+  <mat-drawer #drawer2 mode="over" style="width:50%; height:100%" >
     <mat-card class="person-card mat-elevation-z0" *ngIf="selectedPerson">
       <mat-card-title-group>
         <mat-card-title>{{selectedPerson.name}}</mat-card-title>
