@@ -7,15 +7,22 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PeopleComponent } from './people/people.component';
 import { HomeComponent } from './home/home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PeopleManagementComponent } from './people-management/people-management.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   { path: '', component: PeopleComponent },
   { path: 'exercise', component: HomeComponent },
+  { path: 'try', component: PeopleManagementComponent },
 ];
 
 @NgModule({
@@ -31,9 +38,14 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    PeopleManagementComponent,
+    MatGridListModule,
+    MatCardModule,
+    MatNativeDateModule,
+    MatIconModule
   ],
-  providers: [],
+  providers: [MatDrawer],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

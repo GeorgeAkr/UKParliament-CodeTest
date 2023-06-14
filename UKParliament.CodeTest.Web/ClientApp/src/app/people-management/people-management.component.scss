@@ -1,0 +1,75 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.mat-row {
+  .mat-cell {
+    cursor: pointer;
+  }
+
+  &:hover {
+    .mat-cell {
+      border-color: currentColor !important;
+    }
+  }
+}
+.drawer-content-container {
+  height: calc(100vh - 74px);
+}
+
+.filter-section {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-section-item-flex {
+  flex: 40%;
+}
+
+.filter-section-item {
+  text-align: right;
+}
+
+.filter-section-item-button {
+  width: 90%;
+  height: 73%;
+}
+
+.person-card {
+  max-width: 100%;
+  margin: 8px;
+}
+.mat-card > :first-child, .mat-card-content > :first-child {
+  margin-top: 8px;
+}
+
+.date-form-field {
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.mat-input-element:disabled {
+  color: rgba(0,0,0,.87);
+}
+
+.editing-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.editing-button-container {
+  display: flex;
+  justify-content: center;
+  width: 70px;
+}
