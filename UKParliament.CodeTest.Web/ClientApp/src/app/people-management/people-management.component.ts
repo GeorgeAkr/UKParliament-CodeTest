@@ -62,7 +62,7 @@ export class PeopleManagementComponent implements AfterViewInit {
       this.selectedPerson = null;
       this.drawer.toggle();
     }
-    this.editing = !this.editing;
+    this.editing = false;
   }
 
   selectPerson(person: PersonViewModel): void {
