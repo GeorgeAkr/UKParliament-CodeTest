@@ -62,7 +62,7 @@ export class PeopleManagementComponent implements AfterViewInit {
       this.selectedPerson = null;
       this.drawer.toggle();
     }
-    this.editing = !this.editing;
+    this.editing = false;
   }
 
   selectPerson(person: PersonViewModel): void {
@@ -126,7 +126,7 @@ export class PeopleManagementComponent implements AfterViewInit {
   }
 
   getPeople(): void {
-    this.http.get<PersonViewModel[]>(this.baseUrl + `api/person/getall`).subscribe(result => {
+    this.http.get<PersonViewModel[]>(this.baseUrl + `api/person`).subscribe(result => {
       this.setPeople(result);
     }, error => console.error(error));
   }

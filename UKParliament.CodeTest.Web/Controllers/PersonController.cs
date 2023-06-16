@@ -36,7 +36,6 @@ namespace UKParliament.CodeTest.Web.Controllers
             return _service.DeletePersonAsync(id, ct).Result ? Ok(true) : NotFound(id);
         }
 
-        [Route("GetAll")]
         [HttpGet]
         public ActionResult<IList<PersonViewModel>> GetAll(CancellationToken ct = default)
         {

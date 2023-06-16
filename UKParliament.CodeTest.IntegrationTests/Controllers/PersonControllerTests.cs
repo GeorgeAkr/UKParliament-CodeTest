@@ -36,7 +36,7 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
             var expected = true;
 
             // Act
-            var httpResponse = await Client.GetAsync(Path + "persons");
+            var httpResponse = await Client.GetAsync(Path + "person");
             httpResponse.EnsureSuccessStatusCode();
             var content = await httpResponse.Content.ReadAsStringAsync();
             var actual = JsonConvert.DeserializeObject<List<PersonViewModel>>(content).Count > 1;
@@ -54,7 +54,7 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
             var expected = id;
 
             // Act
-            var httpResponse = await Client.GetAsync(Path + $"persons/{id}");
+            var httpResponse = await Client.GetAsync(Path + $"person/{id}");
             httpResponse.EnsureSuccessStatusCode();
             var response = await httpResponse.Content.ReadAsStringAsync();
             var actual = ConvertionUtils.GetPersonViewModel(response).Id;
@@ -83,12 +83,12 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
         {
             // Arrange
             var id = 1;
-            PersonViewModel personModel = new PersonViewModel() { Name = "Name_e", Address = "Address_e", Details = "details_e", DateOfBirth = new DateTime(2000, 12, 28) };
+            PersonViewModel personModel = new PersonViewModel() { Id = id, Name = "Name_e", Address = "Address_e", Details = "details_e", DateOfBirth = new DateTime(2000, 12, 28) };
             HttpContent content = new StringContent(ConvertionUtils.GetJson(personModel), Encoding.UTF8, "application/json");
-            var expected = HttpStatusCode.OK;
+            var expected = HttpStatusCode.NoContent;
 
             // Act
-            var httpResponse = await Client.PutAsync(Path + $"persons/", content);
+            var httpResponse = await Client.PutAsync(Path + $"person/person", content);
             var actual = httpResponse.StatusCode;
 
             // Assert
@@ -105,7 +105,7 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
             var expected = HttpStatusCode.BadRequest;
 
             // Act
-            var httpResponse = await Client.PutAsync(Path + $"persons/", content);
+            var httpResponse = await Client.PutAsync(Path + $"person/person", content);
             var actual = httpResponse.StatusCode;
 
             // Assert
@@ -142,7 +142,7 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
             var expected = ConvertionUtils.GetJson(person);
 
             // Act
-            var httpResponse = await Client.PostAsync(Path + $"persons/", content);
+            var httpResponse = await Client.PostAsync(Path + $"person/person", content);
             httpResponse.EnsureSuccessStatusCode();
             var actual = await httpResponse.Content.ReadAsStringAsync();
 
@@ -160,7 +160,7 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
             var expected = HttpStatusCode.BadRequest;
 
             // Act
-            var httpResponse = await Client.PostAsync(Path + $"persons/", content);
+            var httpResponse = await Client.PostAsync(Path + $"person/person", content);
             var actual = httpResponse.StatusCode;
 
             // Assert
@@ -168,13 +168,13 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
         }
 
         [Fact]
-        public async Task WithNoIdPersonCallDeleteRetunsMethodNotAllowed()
+        public async Task WithNoIdPersonCallDeleteRetunsNotFound()
         {
             // Arrange
-            var expected = HttpStatusCode.MethodNotAllowed;
+            var expected = HttpStatusCode.NotFound;
 
             // Act
-            var httpResponse = await Client.DeleteAsync(Path + $"persons/");
+            var httpResponse = await Client.DeleteAsync(Path + $"person/");
             var actual = httpResponse.StatusCode;
 
             // Assert
@@ -204,7 +204,7 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
             var expected = HttpStatusCode.OK;
 
             // Act
-            var httpResponse = await Client.DeleteAsync(Path + $"persons/{id}");
+            var httpResponse = await Client.DeleteAsync(Path + $"person/{id}");
             var actual = httpResponse.StatusCode;
 
             // Assert
@@ -219,7 +219,7 @@ namespace UKParliament.CodeTest.IntegrationTests.Controllers
             var expected = HttpStatusCode.OK;
 
             // Act
-            var httpResponse = await Client.DeleteAsync(Path + $"persons/{id}");
+            var httpResponse = await Client.DeleteAsync(Path + $"person/{id}");
             var actual = httpResponse.StatusCode;
 
             // Assert
